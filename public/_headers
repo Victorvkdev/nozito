@@ -1,0 +1,7 @@
+# Cloudflare Pages · cabeçalhos dos arquivos estáticos.
+# Pode rodar dentro do Énóis (iframe) e no próprio domínio. NÃO adicionar X-Frame-Options.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'self' https://enois.ia.br
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()

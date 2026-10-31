@@ -1,0 +1,44 @@
+import { describe, it, expect } from 'vitest';
+import { existsSync } from 'node:fs';
+import items from '../content/items.json';
+
+const TYPES = ['food', 'consumable', 'hat', 'nest', 'toy', 'wallpaper', 'scene'];
+const SLOTS = ['hat', 'nest', 'toy', 'wallpaper', 'scene'];
+
+describe('content/items.json', () => {
+  it('ids únicos', () => {
+    const ids = items.items.map((i) => i.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it.each(items.items)('$id é válido', (item) => {
+    expect(item.id).toMatch(/^[a-z]+_[a-z0-9_]+$/);
+    expect(TYPES).toContain(item.type);
+    expect(['semente', 'faisca']).toContain(item.price.currency);
+    expect(Number.isInteger(item.price.amount) && item.price.amount > 0).toBe(true);
+    expect(item.sprite).toMatch(/^sprites\/[a-z]+\/[a-z0-9-]+\.png$/);
+    expect(item.name.length).toBeGreaterThan(0);
+    if (item.type === 'food') {
+      expect(item.effects.deadlineHours).toBeGreaterThan(0);
+      expect(item.slot).toBeNull();
+    }
+    if (SLOTS.includes(item.type)) expect(item.slot).toBe(item.type);
+  });
+
+  it('itens do MVP com os preços do GDD', () => {
+    const by = Object.fromEntries(items.items.map((i) => [i.id, i]));
+    expect(by.food_minhoca.price).toEqual({ currency: 'semente', amount: 5 });
+    expect(by.food_minhoca.effects.deadlineHours).toBe(72);
+    expect(by.food_petisco_brilhante.price).toEqual({ currency: 'semente', amount: 15 });
+    expect(by.food_banquete.price).toEqual({ currency: 'faisca', amount: 3 });
+    expect(by.food_banquete.effects.deadlineHours).toBe(120);
+    expect(by.consumable_pedra_ressurreicao.price).toEqual({ currency: 'faisca', amount: 25 });
+    expect(items.items.filter((i) => i.type === 'hat')).toHaveLength(2);
+    expect(items.items.filter((i) => i.type === 'nest')).toHaveLength(1);
+    expect(items.items.filter((i) => i.type === 'wallpaper')).toHaveLength(1);
+  });
+
+  it.todo('sprite existe em public/ (liga quando os PNGs entrarem)', () => {
+    for (const i of items.items) expect(existsSync(`public/${i.sprite}`)).toBe(true);
+  });
+});

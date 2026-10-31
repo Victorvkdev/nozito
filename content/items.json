@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "notes": "Fonte única de preços. price.amount em unidades inteiras da moeda (semente ou faisca). O servidor converte Faísca para o amount do protocolo (×1000). Preços iniciais: ajustar após teste.",
+  "items": [
+    {
+      "id": "food_minhoca",
+      "type": "food",
+      "slot": null,
+      "name": "Minhoca",
+      "description": "Simples e nutritiva. Garante 3 dias.",
+      "price": { "currency": "semente", "amount": 5 },
+      "sprite": "sprites/food/minhoca.png",
+      "effects": { "deadlineHours": 72, "mood": 0 },
+      "since": "1.0.0",
+      "tags": ["basico"]
+    },
+    {
+      "id": "food_petisco_brilhante",
+      "type": "food",
+      "slot": null,
+      "name": "Petisco brilhante",
+      "description": "Brilha no bico. 3 dias e um pouco de alegria.",
+      "price": { "currency": "semente", "amount": 15 },
+      "sprite": "sprites/food/petisco-brilhante.png",
+      "effects": { "deadlineHours": 72, "mood": 20 },
+      "since": "1.0.0",
+      "tags": ["brilho"]
+    },
+    {
+      "id": "food_banquete",
+      "type": "food",
+      "slot": null,
+      "name": "Banquete",
+      "description": "Barriga cheia por 5 dias.",
+      "price": { "currency": "faisca", "amount": 3 },
+      "sprite": "sprites/food/banquete.png",
+      "effects": { "deadlineHours": 120, "mood": 10 },
+      "since": "1.0.0",
+      "tags": ["premium"]
+    },
+    {
+      "id": "consumable_pedra_ressurreicao",
+      "type": "consumable",
+      "slot": null,
+      "name": "Pedra da Ressurreição",
+      "description": "Traz o mesmo Nózito de volta do submundo, se usada em até 7 dias.",
+      "price": { "currency": "faisca", "amount": 25 },
+      "sprite": "sprites/ui/pedra-ressurreicao.png",
+      "effects": { "revive": true, "reviveWindowDays": 7 },
+      "since": "1.0.0",
+      "tags": ["submundo"]
+    },
+    {
+      "id": "hat_cartola",
+      "type": "hat",
+      "slot": "hat",
+      "name": "Cartola",
+      "description": "Elegância de corvo.",
+      "price": { "currency": "faisca", "amount": 10 },
+      "sprite": "sprites/hats/cartola.png",
+      "anchor": [16, 4],
+      "effects": {},
+      "since": "1.0.0",
+      "tags": ["classico"]
+    },
+    {
+      "id": "hat_coroa_tampinha",
+      "type": "hat",
+      "slot": "hat",
+      "name": "Coroa de tampinha",
+      "description": "Feita com as tampinhas mais brilhantes do bairro.",
+      "price": { "currency": "faisca", "amount": 15 },
+      "sprite": "sprites/hats/coroa-tampinha.png",
+      "anchor": [16, 4],
+      "effects": {},
+      "since": "1.0.0",
+      "tags": ["brilho"]
+    },
+    {
+      "id": "nest_galhos",
+      "type": "nest",
+      "slot": "nest",
+      "name": "Ninho de galhos",
+      "description": "Aconchegante e com cheiro de mato.",
+      "price": { "currency": "faisca", "amount": 5 },
+      "sprite": "sprites/nests/galhos.png",
+      "anchor": [16, 28],
+      "effects": {},
+      "since": "1.0.0",
+      "tags": ["classico"]
+    },
+    {
+      "id": "wallpaper_ceu_estrelado",
+      "type": "wallpaper",
+      "slot": "wallpaper",
+      "name": "Céu estrelado",
+      "description": "Um céu cheio de coisas brilhantes.",
+      "price": { "currency": "faisca", "amount": 8 },
+      "sprite": "sprites/wallpapers/ceu-estrelado.png",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": ["brilho"]
+    }
+  ]
+}
