@@ -21,6 +21,7 @@ export const MINIGAME_MOOD = 15;
 export const MINIGAME_SEEDS_PER_ROUND_MAX = 10;
 export const MINIGAME_DAILY_SEED_CAP = 30;
 export const HIGH_MOOD = 70; // humor alto = bônus de Sementes
+export const STARTING_SEEDS = 30; // conta nova (dá para 6 Minhocas até o minijogo chegar)
 
 // 5 estados de sprite. Limites por fração do prazo (ver contradição #2 no CHANGELOG).
 export const STAGE = Object.freeze({

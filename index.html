@@ -1,13 +1,80 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0b16" />
+    <meta name="description" content="Nózito: um corvinho de pixel para cuidar todo dia." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nozito</title>
+    <title>Nózito</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="loading" class="loading" role="status" aria-live="polite">
+      <h1 class="logo">NÓZITO</h1>
+      <div class="loadbar" aria-hidden="true"><span id="loadbar"></span></div>
+      <p id="loadmsg" class="loadmsg">Chocando o ovo…</p>
+      <button id="retry" class="btn btn-violet" type="button" hidden>Tentar de novo</button>
+    </div>
+
+    <main id="game" class="game" hidden>
+      <header class="hud">
+        <div class="hud-name">
+          <span id="crowName" class="crow-name">Nózito</span>
+          <span id="crowAge" class="crow-age"></span>
+        </div>
+        <div class="seeds" aria-label="Sementes">
+          <img id="seedIcon" alt="" width="24" height="24" />
+          <span id="seeds">0</span>
+        </div>
+      </header>
+
+      <section class="stage" id="stage">
+        <canvas id="canvas" role="img" aria-label="Nózito no ninho"></canvas>
+        <p id="stageHint" class="stage-hint">Toque no Nózito para fazer carinho</p>
+      </section>
+
+      <section class="status" aria-label="Como ele está">
+        <div class="meter-row">
+          <span class="meter-label">Barriga</span>
+          <div id="meterFood" class="meter" role="meter" aria-label="Barriga" aria-valuemin="0" aria-valuemax="10"></div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">Humor</span>
+          <div id="meterMood" class="meter meter-mood" role="meter" aria-label="Humor" aria-valuemin="0" aria-valuemax="10"></div>
+        </div>
+        <p id="deadline" class="deadline"></p>
+      </section>
+
+      <nav class="actions" id="actionsAlive">
+        <button id="btnFeed" class="btn btn-gold" type="button">Alimentar</button>
+        <button id="btnPet" class="btn btn-violet" type="button">Carinho</button>
+      </nav>
+
+      <section class="actions dead-panel" id="actionsDead" hidden>
+        <p id="deadText" class="dead-text"></p>
+        <button id="btnSummon" class="btn btn-violet" type="button">Invocar o próximo</button>
+        <p class="soon">Pedra da Ressurreição: em breve</p>
+      </section>
+
+      <details class="graves" id="gravesBox" hidden>
+        <summary>Cemitério da linhagem</summary>
+        <ul id="graves"></ul>
+      </details>
+
+      <div id="sheet" class="sheet" hidden>
+        <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+          <div class="sheet-head">
+            <h2 id="sheetTitle">Comidas</h2>
+            <button id="sheetClose" class="btn btn-ghost" type="button" aria-label="Fechar">✕</button>
+          </div>
+          <p id="mealsInfo" class="sheet-sub"></p>
+          <ul id="foodList" class="food-list"></ul>
+        </div>
+      </div>
+
+      <div id="toasts" class="toasts" aria-live="polite"></div>
+    </main>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

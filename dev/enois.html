@@ -39,7 +39,17 @@
       // confirmação de gasto/compartilhamento. Envia enois:spend:result (a proposta da issue).
       const frame = document.getElementById('game');
       const ORIGIN = location.origin;
-      frame.src = `/dev/playground.html?parent=${encodeURIComponent(ORIGIN)}`;
+      // ?game=/ carrega o jogo de verdade; sem parâmetro, o laboratório de regras.
+      const wanted = new URLSearchParams(location.search).get('game');
+      const path = wanted && wanted.startsWith('/') && !wanted.startsWith('//') ? wanted : '/dev/playground.html';
+      frame.src = `${path}${path.includes('?') ? '&' : '?'}parent=${encodeURIComponent(ORIGIN)}`;
+      // Token falso estável por navegador (o servidor só aceita com ENOIS_DEV_FAKE=true em localhost).
+      let devId = null;
+      try { devId = localStorage.getItem('nozito.devPlayer'); } catch {}
+      if (!devId) {
+        devId = Array.from(crypto.getRandomValues(new Uint8Array(12)), (b) => b.toString(16).padStart(2, '0')).join('');
+        try { localStorage.setItem('nozito.devPlayer', devId); } catch {}
+      }
       const log = (s) => (document.getElementById('log').textContent = `${new Date().toLocaleTimeString()} ${s}\n` + document.getElementById('log').textContent);
       const state = document.getElementById('state');
       const dialog = document.getElementById('dialog');
@@ -65,8 +75,7 @@
         if (d.type === 'enois:ready') state.textContent = 'pronto';
         if (d.type === 'enois:error') state.textContent = `erro: ${d.message ?? ''}`;
         if (d.type === 'enois:identity') {
-          const token = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, '0')).join('');
-          toGame({ type: 'enois:identity', token });
+          toGame({ type: 'enois:identity', token: `dev_${devId}` });
           log('→ enois:identity (token falso)');
         }
         if (d.type === 'enois:spend' && !open) {

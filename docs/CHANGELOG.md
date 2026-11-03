@@ -1,5 +1,34 @@
 # Changelog
 
+## [Sprint 1] — 2026-11-03 · Nózito vivo na tela
+
+### Adicionado
+- Arte: `tools/build_sprites.py` gera `src/art/sprites.js` (Nózito 32×32 com idle, happy, eat, pet,
+  hungry, weak, dead, squash; comidas, Semente, coração, Pedra, chapéus, ninhos, lápide).
+  `src/art/render.js` desenha com cache e palette swap (skins `weak` e `ghost`).
+  `tools/sprite-sheet.html` para revisar os sprites antes do commit.
+- Cenário padrão em pixels (céu em faixas, estrelas piscando, lua pontilhada, galho, ninho, névoa).
+- Tela inicial mobile-first: palco com escala inteira, barras de 10 segmentos (Barriga e Humor),
+  Alimentar (folha de comidas), Carinho (botão ou toque no Nózito), lápide + "Invocar Nózito II",
+  cemitério da linhagem, toasts. Sem alert/confirm. `prefers-reduced-motion` respeitado.
+- API (Pages Functions + D1): `POST /api/session` (token do Énóis ou convidado), `GET /api/state`,
+  `POST /api/feed`, `POST /api/pet`, `POST /api/summon`. Morte, preço e saldo decididos no servidor.
+- Login: dentro do Énóis usa `enois:identity` → `POST /api/games/tokens/validate` (confere `gameId`).
+  Fora do Énóis (ou se o login falhar) joga como convidado. Sessão própria por Bearer, 30 dias.
+- Fontes Pixelify Sans e VT323 servidas do próprio domínio (`@fontsource`).
+- `wrangler.toml`, `.dev.vars.example`, `vite.config.js` (proxy /api e nada inline em `data:`).
+- `dev/enois.html?game=/` abre o jogo de verdade dentro do Énóis de mentira.
+- Testes: API completa sobre SQLite real com a migration (sessão, login Énóis, alimentar, limites,
+  morte, linhagem, carinho, isolamento entre jogadores) e sprites do catálogo.
+
+### Decisões
+- Conta nova começa com 30 Sementes (até o minijogo existir, na Sprint 2).
+- Comida em Faísca e Pedra da Ressurreição aparecem como "em breve" (aguardam a issue no Énóis).
+- O jogo não depende do Énóis: com ou sem a integração, roda no próprio domínio.
+
+### Pendente
+- Limite de criação de contas convidadas (regra de rate limit na Cloudflare em `/api/session`).
+
 ## [Não lançado]
 
 ### Adicionado

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import items from '../content/items.json';
+import { SPRITES } from '../src/art/sprites.js';
 
 const TYPES = ['food', 'consumable', 'hat', 'nest', 'toy', 'wallpaper', 'scene'];
 const SLOTS = ['hat', 'nest', 'toy', 'wallpaper', 'scene'];
@@ -37,5 +38,15 @@ describe('content/items.json', () => {
     expect(items.items.filter((i) => i.type === 'wallpaper')).toHaveLength(1);
   });
 
-  it.todo('todo sprite existe em src/art/sprites.js (liga na Sprint 1)');
+  it('todo item tem sprite em src/art/sprites.js', () => {
+    for (const i of items.items) expect(SPRITES[i.sprite], i.id).toBeDefined();
+  });
+
+  it('sprites do corvo para todos os estados', () => {
+    for (const id of ['crow_idle', 'crow_happy', 'crow_eat', 'crow_pet', 'crow_hungry', 'crow_weak', 'crow_dead', 'crow_squash']) {
+      expect(SPRITES[id], id).toBeDefined();
+      expect(SPRITES[id].w).toBe(32);
+      expect(SPRITES[id].h).toBe(32);
+    }
+  });
 });

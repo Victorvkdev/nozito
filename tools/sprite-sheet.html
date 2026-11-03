@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nózito · sprite sheet</title>
+    <style>
+      body { margin: 0; padding: 16px; background: #120e1d; color: #f4f1ea; font: 16px ui-monospace, monospace; }
+      .grid { display: flex; flex-wrap: wrap; gap: 16px; }
+      figure { margin: 0; background: #1a1426; padding: 8px; box-shadow: 0 0 0 4px #3b2d5a; }
+      figcaption { font-size: 12px; color: #a397c4; margin-top: 6px; }
+      canvas { image-rendering: pixelated; display: block; }
+      .row { display: flex; gap: 8px; }
+    </style>
+  </head>
+  <body>
+    <h1>Sprite sheet (revisar antes de cada commit)</h1>
+    <div class="grid" id="grid"></div>
+    <script type="module">
+      import { SPRITES, spriteCanvas } from '../src/art/render.js';
+      const skinsFor = (id) => (id.startsWith('crow_') ? ['default', 'weak', 'ghost'] : ['default']);
+      const grid = document.getElementById('grid');
+      for (const [id, s] of Object.entries(SPRITES)) {
+        const fig = document.createElement('figure');
+        const row = document.createElement('div');
+        row.className = 'row';
+        const scale = s.w > 32 ? 3 : 4;
+        for (const skin of skinsFor(id)) {
+          s.frames.forEach((_, i) => {
+            const c = document.createElement('canvas');
+            c.width = s.w * scale;
+            c.height = s.h * scale;
+            const ctx = c.getContext('2d');
+            ctx.imageSmoothingEnabled = false;
+            ctx.drawImage(spriteCanvas(id, i, skin), 0, 0, c.width, c.height);
+            row.append(c);
+          });
+        }
+        const cap = document.createElement('figcaption');
+        cap.textContent = `${id} · ${s.w}×${s.h} · ${s.frames.length} frame(s)`;
+        fig.append(row, cap);
+        grid.append(fig);
+      }
+    </script>
+  </body>
+</html>

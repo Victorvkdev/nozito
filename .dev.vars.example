@@ -1,0 +1,3 @@
+# Copie para .dev.vars (não vai para o git). Só para rodar local.
+ENOIS_DEV_FAKE=true
+ENOIS_GAME_ID=game_dev

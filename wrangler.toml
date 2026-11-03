@@ -1,0 +1,15 @@
+name = "nozito"
+compatibility_date = "2026-10-01"
+pages_build_output_dir = "dist"
+
+[vars]
+ENOIS_API_BASE = "https://enois.ia.br/api"
+ALLOW_GUEST = "true"
+# ENOIS_GAME_ID: preencher com o id do jogo no Énóis (game_…) quando publicar.
+# Sem ele, o login pelo Énóis fica desligado e todos jogam como convidado.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nozito-db"
+database_id = "00000000-0000-0000-0000-000000000000" # trocar pelo id real do D1
+migrations_dir = "migrations"
