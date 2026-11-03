@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Énóis de mentira</title>
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; background: #10131a; color: #e8eaf0; }
+      header { padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      h1 { font-size: 16px; margin: 0; }
+      #state { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: #1b2030; }
+      .wrap { display: grid; grid-template-columns: minmax(0, 480px) minmax(0, 1fr); gap: 12px; padding: 0 16px 16px; }
+      @media (max-width: 800px) { .wrap { grid-template-columns: 1fr; } }
+      iframe { width: 100%; height: 80vh; border: 1px solid #262c3a; border-radius: 12px; background: #fff; }
+      #dialog { background: #1b2030; border: 1px solid #3a4152; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+      #dialog[hidden] { display: none; }
+      #dialog img { max-width: 160px; image-rendering: pixelated; display: block; margin: 8px 0; }
+      button { min-height: 44px; padding: 8px 14px; border-radius: 10px; border: 1px solid #3a4152; background: #264de4; color: #fff; font: inherit; cursor: pointer; margin-right: 6px; }
+      button.secondary { background: #1b2030; }
+      #log { font: 12px ui-monospace, monospace; white-space: pre-wrap; background: #0b0d12; border: 1px solid #262c3a; border-radius: 8px; padding: 8px; max-height: 60vh; overflow: auto; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Énóis de mentira (só para dev)</h1>
+      <span id="state">parado</span>
+    </header>
+    <div class="wrap">
+      <iframe id="game" title="Nózito"
+        sandbox="allow-scripts allow-same-origin allow-pointer-lock"
+        allow="fullscreen; gamepad; autoplay" referrerpolicy="no-referrer"></iframe>
+      <div>
+        <div id="dialog" hidden role="dialog" aria-live="polite"></div>
+        <div id="log" role="log"></div>
+      </div>
+    </div>
+    <script type="module">
+      // Imita o player do Énóis: aceita só o quadro ativo, responde identity e mostra
+      // confirmação de gasto/compartilhamento. Envia enois:spend:result (a proposta da issue).
+      const frame = document.getElementById('game');
+      const ORIGIN = location.origin;
+      frame.src = `/dev/playground.html?parent=${encodeURIComponent(ORIGIN)}`;
+      const log = (s) => (document.getElementById('log').textContent = `${new Date().toLocaleTimeString()} ${s}\n` + document.getElementById('log').textContent);
+      const state = document.getElementById('state');
+      const dialog = document.getElementById('dialog');
+      let open = false;
+      const toGame = (m) => frame.contentWindow.postMessage({ version: 1, ...m }, ORIGIN);
+
+      function ask(html, onYes, onNo) {
+        open = true;
+        dialog.innerHTML = html + '<div><button id="yes">Confirmar</button><button id="no" class="secondary">Cancelar</button></div>';
+        dialog.hidden = false;
+        dialog.querySelector('#yes').onclick = () => { close(); onYes(); };
+        dialog.querySelector('#no').onclick = () => { close(); onNo(); };
+      }
+      function close() { open = false; dialog.hidden = true; dialog.innerHTML = ''; }
+      const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+      window.addEventListener('message', (e) => {
+        if (e.source !== frame.contentWindow || e.origin !== ORIGIN) return;
+        const d = e.data;
+        if (!d || typeof d.type !== 'string') return;
+        log(`← ${JSON.stringify(d).slice(0, 140)}`);
+        if (d.type === 'enois:loading') state.textContent = `carregando ${d.progress ?? ''}`;
+        if (d.type === 'enois:ready') state.textContent = 'pronto';
+        if (d.type === 'enois:error') state.textContent = `erro: ${d.message ?? ''}`;
+        if (d.type === 'enois:identity') {
+          const token = Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, '0')).join('');
+          toGame({ type: 'enois:identity', token });
+          log('→ enois:identity (token falso)');
+        }
+        if (d.type === 'enois:spend' && !open) {
+          if (!Number.isInteger(d.amount) || d.amount <= 0 || typeof d.requestId !== 'string') return;
+          ask(`<strong>Gastar ${d.amount / 1000} faísca(s)</strong><p>${esc(d.motivo ?? '')}</p>`,
+            () => { toGame({ type: 'enois:spend:result', requestId: d.requestId, status: 'paid' }); log('→ spend:result paid'); },
+            () => { toGame({ type: 'enois:spend:result', requestId: d.requestId, status: 'cancelled' }); log('→ spend:result cancelled'); });
+        }
+        if (d.type === 'enois:share' && !open) {
+          ask(`<strong>Publicar no feed?</strong><p>${esc(d.texto)}</p>${d.imagem?.startsWith('data:image/') ? `<img alt="" src="${esc(d.imagem)}">` : ''}`,
+            () => log('(post publicado, de mentira)'), () => log('(compartilhamento cancelado)'));
+        }
+      });
+    </script>
+  </body>
+</html>

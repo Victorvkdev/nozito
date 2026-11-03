@@ -1,0 +1,28 @@
+:root {
+  --bg: #f6f1e7; --ink: #1d1b24; --muted: #5a5566; --card: #fffaf0; --line: #d9cfbd;
+  --accent: #3b2f86; --accent-ink: #ffffff; --warn: #9a3412; --ok: #166534;
+  font-family: ui-rounded, system-ui, sans-serif; color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); }
+main { max-width: 480px; margin: 0 auto; padding: 16px; display: grid; gap: 12px; }
+h1 { font-size: 20px; margin: 0; }
+h2 { font-size: 15px; margin: 0 0 8px; }
+.sub { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+.stage { position: relative; display: grid; place-items: center; background: #cfe6f5; border-radius: 16px; padding: 12px; }
+canvas { image-rendering: pixelated; width: 192px; height: 192px; }
+.badge { position: absolute; top: 10px; left: 10px; background: var(--card); border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 600; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0 0 8px; font-size: 14px; }
+dt { color: var(--muted); } dd { margin: 0; font-weight: 600; }
+.bar { height: 10px; background: #e8dfcf; border-radius: 999px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--ok); transition: width .2s; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+button { min-height: 44px; min-width: 44px; padding: 8px 14px; border-radius: 12px; border: 0; background: var(--accent); color: var(--accent-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+button:disabled { background: #b9b3c6; color: #2c2a33; cursor: not-allowed; }
+button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+.msg { min-height: 1.4em; margin: 0; font-weight: 600; text-align: center; }
+.msg.err { color: var(--warn); } .msg.ok { color: var(--ok); }
+.clock { margin: 0; font-variant-numeric: tabular-nums; }
+.graves { margin: 8px 0 0; padding-left: 18px; font-size: 14px; }
+.log { margin: 8px 0 0; padding-left: 18px; font: 12px ui-monospace, monospace; max-height: 180px; overflow: auto; }

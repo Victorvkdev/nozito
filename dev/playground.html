@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nózito · laboratório</title>
+    <link rel="stylesheet" href="./playground.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Nózito · laboratório</h1>
+        <p class="sub">Simulador local das regras (<code>shared/rules.js</code>). Relógio de mentira, estado só na memória.</p>
+      </header>
+
+      <section class="stage" aria-label="Nózito">
+        <canvas id="crow" width="192" height="192" aria-hidden="true"></canvas>
+        <div class="badge" id="badge"></div>
+      </section>
+
+      <p id="msg" class="msg" role="status" aria-live="polite"></p>
+
+      <section class="panel">
+        <h2>Estado</h2>
+        <dl id="stats"></dl>
+        <div class="bar" aria-hidden="true"><span id="hungerBar"></span></div>
+      </section>
+
+      <section class="panel">
+        <h2>Relógio simulado</h2>
+        <p class="clock" id="clock"></p>
+        <div class="row">
+          <button data-time="1">+1h</button>
+          <button data-time="12">+12h</button>
+          <button data-time="24">+1 dia</button>
+          <button data-time="168">+7 dias</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Cuidar</h2>
+        <div class="row" id="foods"></div>
+        <div class="row">
+          <button id="pet">Carinho</button>
+          <button id="game">Caça ao Brilho</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Morte e linhagem</h2>
+        <div class="row">
+          <button id="revive">Pedra da Ressurreição (25 Faíscas)</button>
+          <button id="summon">Invocar o próximo</button>
+        </div>
+        <ul id="graves" class="graves"></ul>
+      </section>
+
+      <section class="panel">
+        <h2>Ponte Énóis</h2>
+        <p class="sub" id="where"></p>
+        <div class="row">
+          <button id="identity">Pedir identidade</button>
+          <button id="share">Compartilhar no feed</button>
+        </div>
+        <ol id="log" class="log"></ol>
+      </section>
+    </main>
+    <script type="module" src="./playground.js"></script>
+  </body>
+</html>

@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync } from 'node:fs';
 import items from '../content/items.json';
 
 const TYPES = ['food', 'consumable', 'hat', 'nest', 'toy', 'wallpaper', 'scene'];
@@ -16,7 +15,7 @@ describe('content/items.json', () => {
     expect(TYPES).toContain(item.type);
     expect(['semente', 'faisca']).toContain(item.price.currency);
     expect(Number.isInteger(item.price.amount) && item.price.amount > 0).toBe(true);
-    expect(item.sprite).toMatch(/^sprites\/[a-z]+\/[a-z0-9-]+\.png$/);
+    expect(item.sprite).toMatch(/^[a-z]+_[a-z0-9_]+$/);
     expect(item.name.length).toBeGreaterThan(0);
     if (item.type === 'food') {
       expect(item.effects.deadlineHours).toBeGreaterThan(0);
@@ -38,7 +37,5 @@ describe('content/items.json', () => {
     expect(items.items.filter((i) => i.type === 'wallpaper')).toHaveLength(1);
   });
 
-  it.todo('sprite existe em public/ (liga quando os PNGs entrarem)', () => {
-    for (const i of items.items) expect(existsSync(`public/${i.sprite}`)).toBe(true);
-  });
+  it.todo('todo sprite existe em src/art/sprites.js (liga na Sprint 1)');
 });

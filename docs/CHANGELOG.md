@@ -1,5 +1,16 @@
 # Changelog
 
+## [Não lançado]
+
+### Adicionado
+- `docs/ARTSTYLE.md` (estilo visual, herdado do Krowlect).
+- `dev/`: laboratório local (`/dev/enois.html`) que simula o Énóis e mostra as regras rodando. Fica fora do build.
+
+### Alterado
+- Pipeline de arte: sprites em texto (`src/art/sprites.js`) em vez de PNG do Piskel, como no Krowlect.
+  `items.json` → `sprite` agora é o id do sprite.
+- Fontes servidas do próprio domínio (CSP sem Google Fonts).
+
 ## [Sprint 0] — 2026-10-31 · Fundação
 
 ### Adicionado
