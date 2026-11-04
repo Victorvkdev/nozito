@@ -31,7 +31,9 @@ a morte). Como é "pura", é fácil de testar: entrada X → saída Y, sempre.
 - Morte "preguiçosa": não existe um robô matando corvos de madrugada. Quando alguém abre o jogo,
   o servidor vê que `agora ≥ prazo` e grava a morte com `died_at = deadline_at` (a hora real).
 
-**Exercício:** em `HUNGER_THRESHOLDS`, troque `0.25` por `0.4`. Rode `npm test` e veja qual teste
+> Na Sprint 2 a fome virou barriga 0–100 (ver sprint-2.md). Exercício atualizado:
+
+**Exercício:** em `BELLY_THRESHOLDS`, troque `60` por `70`. Rode `npm test` e veja qual teste
 quebra e por quê. Desfaça.
 
 ---
@@ -47,7 +49,7 @@ sem precisar da Cloudflare.
 **Leia:** o teste `'morre no prazo; morto não come; invoca Nózito II'`. Ele avança um relógio
 falso (`clock += 80 * HOUR`) — por isso dá para testar 3 dias em 1 milissegundo.
 
-**Exercício:** `npm run test:watch` e mude `STARTING_SEEDS` para 10. Veja os testes ficarem
+**Exercício:** `npm run test:watch` e mude `BELLY_START` para 50. Veja os testes ficarem
 vermelhos ao salvar. Desfaça.
 
 ---

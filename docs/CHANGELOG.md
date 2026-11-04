@@ -1,5 +1,46 @@
 # Changelog
 
+## [Sprint 2] — 2026-11-04 · Barriga, minijogos e loja
+
+### Mudou (decisões do Vk)
+- **Sem moeda interna.** Sementes saíram do jogo. Tudo que se compra é com Faísca.
+- **Barriga 0–100** no lugar do "prazo por comida": esvazia 100 em 24h; vazia por 12h = morte (cheia → morte = 36h).
+- **Minhocas não se compram:** vêm do minijogo Cata Minhoca e **estragam em 24h** (máx. 10 guardadas).
+- **Humor importa:** Nózito feliz (humor ≥ 70) dá +1 minhoca por rodada.
+- **Caça ao Brilho** sobe o humor e pode achar **tesouros do ninho**: 9 colecionáveis (comum, raro,
+  lendário) que nunca repetem e enfeitam o galho. Petisco brilhante saiu.
+- Comidas com Faísca têm bônus de humor e efeito temporário (Sopa quentinha: digestão lenta 24h).
+- Sem limite de refeições por dia: o limite agora é a barriga cheia (≥ 95).
+
+### Caça ao Brilho refeita (2026-11-04)
+- **O Nózito voa e você controla:** arraste o dedo (ou ← → / A D) e ele voa até lá, com velocidade limitada. Pega o brilho com o corpo, não com toque.
+- **Combo:** pegar em sequência (janela de 2s) sobe o multiplicador: x2 a partir de 6, x3 a partir de 14.
+- **Risco:** pedra atordoa 0,6s, zera o combo e tira 3 pontos (1,4s de proteção depois).
+- **Variedade:** cristal dourado rápido em zigue-zague (+5), trilhas de 4 moedas, ímã de 3s que puxa brilhos.
+- **Meta:** 3 estrelas (10, 30 e 50 pontos) com barra de progresso na tela; a 1ª estrela libera a chance de tesouro.
+- Teto do servidor da rodada: 60 → 80 pontos (`shared/rules.js`). Sem mudança na recompensa.
+- `screen.js`: minijogos podem devolver pontos no `update`, aceitar `move` (arrastar) e `keyup`.
+
+### Adicionado
+- Telas com abas: Ninho, Minhocas, Brilho, Loja.
+- Cata Minhoca (toque ou teclas 1–6) e Caça ao Brilho (toque ou Espaço), 20s, validados no servidor
+  (`/api/round/start` e `/api/round/finish`: tempo mínimo, expiração, teto de pontos, rodada única).
+- Despensa: come do estoque, mostra efeito de cada comida e quando a minhoca estraga.
+- Coleção "Tesouros do ninho" na tela da Caça ao Brilho.
+- Loja (vitrine) por categoria; equipar/tirar o que já tem (`/api/equip`). Compra: "em breve".
+- Cosméticos desenhados no corvo: chapéu, óculos, capa (atrás), ninho e céu (papel de parede).
+- Itens novos: Frutinhas silvestres, Sopa quentinha, Gorro de lã, Óculos redondos, Óculos de estrela,
+  Capa violeta, Capa da noite, Ninho de almofada, Céu de aurora, Pôr do sol.
+- Laboratório local: botão "ganhar itens" na loja (`/api/dev/grant`, só com `ENOIS_DEV_FAKE` + localhost).
+- Testes: barriga e digestão lenta, minijogos (tempo, teto, rodada repetida, rodada de outro jogador),
+  estoque, equipar, herança de cosméticos, compra indisponível.
+
+### Removido
+- `dev/playground.*` (o laboratório agora abre o jogo de verdade em `/dev/enois.html`).
+
+### Atenção
+- `migrations/0001_init.sql` foi reescrita (o banco ainda não estava no ar). Banco local precisa ser recriado.
+
 ## [Sprint 1] — 2026-11-03 · Nózito vivo na tela
 
 ### Adicionado

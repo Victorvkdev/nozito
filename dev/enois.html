@@ -39,9 +39,9 @@
       // confirmação de gasto/compartilhamento. Envia enois:spend:result (a proposta da issue).
       const frame = document.getElementById('game');
       const ORIGIN = location.origin;
-      // ?game=/ carrega o jogo de verdade; sem parâmetro, o laboratório de regras.
+      // Carrega o jogo (ou outro caminho do mesmo site com ?game=/caminho).
       const wanted = new URLSearchParams(location.search).get('game');
-      const path = wanted && wanted.startsWith('/') && !wanted.startsWith('//') ? wanted : '/dev/playground.html';
+      const path = wanted && wanted.startsWith('/') && !wanted.startsWith('//') ? wanted : '/';
       frame.src = `${path}${path.includes('?') ? '&' : '?'}parent=${encodeURIComponent(ORIGIN)}`;
       // Token falso estável por navegador (o servidor só aceita com ENOIS_DEV_FAKE=true em localhost).
       let devId = null;

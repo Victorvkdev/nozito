@@ -1,6 +1,5 @@
 // Sessão própria do Nózito (Bearer). Login pelo Énóis ou como convidado.
 import { HttpError } from './http.js';
-import { STARTING_SEEDS } from '../shared/rules.js';
 
 export const SESSION_TTL_MS = 30 * 24 * 3_600_000;
 const TOKEN_RE = /^[a-f0-9]{64}$/;
@@ -17,8 +16,8 @@ export function randomHex(bytes = 32) {
 
 export async function ensurePlayer(db, playerRef, now) {
   await db
-    .prepare('INSERT INTO players (player_ref, seeds, created_at) VALUES (?, ?, ?) ON CONFLICT(player_ref) DO NOTHING')
-    .bind(playerRef, STARTING_SEEDS, now)
+    .prepare('INSERT INTO players (player_ref, created_at) VALUES (?, ?) ON CONFLICT(player_ref) DO NOTHING')
+    .bind(playerRef, now)
     .run();
 }
 
@@ -48,6 +47,9 @@ function isLocal(request) {
   return host === 'localhost' || host === '127.0.0.1';
 }
 
+/** Atalhos de laboratório: precisam da variável E de localhost. Nunca ligam em produção. */
+export const isLocalDev = (env, request) => env.ENOIS_DEV_FAKE === 'true' && isLocal(request);
+
 /**
  * Troca o token do Énóis pelo playerRef (POST /api/games/tokens/validate, endpoint real do Énóis).
  * Só aceita token do NOSSO jogo (ENOIS_GAME_ID).
@@ -57,7 +59,7 @@ export async function playerRefFromEnois(token, env, request, fetchImpl = fetch)
     throw new HttpError(400, 'INVALID_TOKEN', 'Token inválido.');
   }
   // Atalho só para o laboratório local (dev/enois.html). Duas travas: variável + localhost.
-  if (env.ENOIS_DEV_FAKE === 'true' && isLocal(request) && token.startsWith('dev_')) {
+  if (isLocalDev(env, request) && token.startsWith('dev_')) {
     return `plr_dev${(await sha256(token)).slice(0, 26)}`;
   }
   if (!env.ENOIS_GAME_ID) throw new HttpError(503, 'ENOIS_NOT_CONFIGURED', 'Login do Énóis ainda não configurado.');

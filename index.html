@@ -16,64 +16,127 @@
       <button id="retry" class="btn btn-violet" type="button" hidden>Tentar de novo</button>
     </div>
 
-    <main id="game" class="game" hidden>
-      <header class="hud">
-        <div class="hud-name">
-          <span id="crowName" class="crow-name">Nózito</span>
-          <span id="crowAge" class="crow-age"></span>
-        </div>
-        <div class="seeds" aria-label="Sementes">
-          <img id="seedIcon" alt="" width="24" height="24" />
-          <span id="seeds">0</span>
-        </div>
-      </header>
+    <div id="game" class="game" hidden>
+      <!-- ============ NINHO ============ -->
+      <main id="screen-ninho" class="screen">
+        <header class="hud">
+          <div class="hud-name">
+            <span id="crowName" class="crow-name">Nózito</span>
+            <span id="crowAge" class="crow-age"></span>
+          </div>
+          <div class="pill" aria-label="Minhocas no estoque">
+            <img id="wormIcon" alt="" width="24" height="24" />
+            <span id="wormCount">0</span>
+          </div>
+        </header>
 
-      <section class="stage" id="stage">
-        <canvas id="canvas" role="img" aria-label="Nózito no ninho"></canvas>
-        <p id="stageHint" class="stage-hint">Toque no Nózito para fazer carinho</p>
-      </section>
+        <section class="stage" id="stage">
+          <canvas id="canvas" role="img" aria-label="Nózito no ninho"></canvas>
+          <p id="stageHint" class="stage-hint">Toque no Nózito para fazer carinho</p>
+        </section>
 
-      <section class="status" aria-label="Como ele está">
-        <div class="meter-row">
-          <span class="meter-label">Barriga</span>
-          <div id="meterFood" class="meter" role="meter" aria-label="Barriga" aria-valuemin="0" aria-valuemax="10"></div>
-        </div>
-        <div class="meter-row">
-          <span class="meter-label">Humor</span>
-          <div id="meterMood" class="meter meter-mood" role="meter" aria-label="Humor" aria-valuemin="0" aria-valuemax="10"></div>
-        </div>
-        <p id="deadline" class="deadline"></p>
-      </section>
+        <section class="status" aria-label="Como ele está">
+          <div class="meter-row">
+            <span class="meter-label">Barriga</span>
+            <div id="meterFood" class="meter" role="meter" aria-label="Barriga" aria-valuemin="0" aria-valuemax="10"></div>
+          </div>
+          <div class="meter-row">
+            <span class="meter-label">Humor</span>
+            <div id="meterMood" class="meter" role="meter" aria-label="Humor" aria-valuemin="0" aria-valuemax="10"></div>
+          </div>
+          <p id="deadline" class="deadline"></p>
+          <p id="slowTag" class="tag" hidden></p>
+          <p id="happyTag" class="tag" hidden>Nózito feliz: +1 minhoca por rodada no Cata Minhoca</p>
+        </section>
 
-      <nav class="actions" id="actionsAlive">
-        <button id="btnFeed" class="btn btn-gold" type="button">Alimentar</button>
-        <button id="btnPet" class="btn btn-violet" type="button">Carinho</button>
+        <nav class="actions" id="actionsAlive" aria-label="Cuidar">
+          <button id="btnFeed" class="btn btn-gold" type="button">Alimentar</button>
+          <button id="btnPet" class="btn btn-violet" type="button">Carinho</button>
+        </nav>
+
+        <section class="actions dead-panel" id="actionsDead" hidden>
+          <p id="deadText" class="dead-text"></p>
+          <button id="btnSummon" class="btn btn-violet" type="button">Invocar o próximo</button>
+          <p class="soon">Pedra da Ressurreição: em breve na loja</p>
+        </section>
+
+        <details class="graves" id="gravesBox" hidden>
+          <summary>Cemitério da linhagem</summary>
+          <ul id="graves"></ul>
+        </details>
+      </main>
+
+      <!-- ============ MINIJOGOS ============ -->
+      <main id="screen-minhoca" class="screen mg" hidden data-game="cata_minhoca">
+        <header class="mg-hud">
+          <h2 class="mg-title">Cata Minhoca</h2>
+          <span class="mg-score" aria-live="off">0</span>
+          <span class="mg-time">20</span>
+        </header>
+        <section class="stage mg-stage"><canvas role="img" aria-label="Campo de minhocas"></canvas>
+          <div class="mg-overlay">
+            <div class="mg-msg"><p class="mg-text">Toque nas minhocas antes que elas se escondam! Cada 3 catadas = 1 minhoca para o Nózito. Minhoca estraga em 24h. Nózito feliz dá +1 por rodada.</p></div>
+            <p class="mg-keys">Teclado: 1 a 6</p>
+            <button class="btn btn-gold mg-start" type="button">Começar</button>
+            <button class="btn btn-violet mg-home" type="button" hidden>Alimentar o Nózito</button>
+          </div>
+        </section>
+        <p class="mg-stock"></p>
+      </main>
+
+      <main id="screen-brilho" class="screen mg" hidden data-game="caca_brilho">
+        <header class="mg-hud">
+          <h2 class="mg-title">Caça ao Brilho</h2>
+          <span class="mg-score" aria-live="off">0</span>
+          <span class="mg-time">20</span>
+        </header>
+        <section class="stage mg-stage"><canvas role="img" aria-label="Céu com coisas brilhantes caindo e o Nózito voando para pegá-las"></canvas>
+          <div class="mg-overlay">
+            <div class="mg-msg"><p class="mg-text">Arraste o dedo para o Nózito voar e pegar o que brilha: moeda +1, anel +2, cristal dourado +5. Pegue em sequência para subir o combo (x2, x3). Pedra atordoa e zera o combo. O ímã puxa os brilhos. Faça 10 pontos para ter chance de tesouro.</p></div>
+            <p class="mg-keys">Teclado: ← → (ou A e D) movem o Nózito</p>
+            <button class="btn btn-gold mg-start" type="button">Começar</button>
+            <button class="btn btn-violet mg-home" type="button" hidden>Voltar ao ninho</button>
+          </div>
+        </section>
+        <p class="mg-stock"></p>
+        <section class="collection" aria-labelledby="colTitle">
+          <h3 id="colTitle">Tesouros do ninho</h3>
+          <ul id="collection" class="col-grid"></ul>
+        </section>
+      </main>
+
+      <!-- ============ LOJA ============ -->
+      <main id="screen-loja" class="screen" hidden>
+        <header class="shop-head">
+          <h2>Loja</h2>
+          <p class="sheet-sub">Itens pagos com Faíscas da Rede Énóis. Pagamento chegando em breve.</p>
+          <button id="devGrant" class="btn btn-moss" type="button" hidden>Laboratório: ganhar itens</button>
+        </header>
+        <div id="shop"></div>
+      </main>
+
+      <nav class="tabs" aria-label="Telas">
+        <button class="tab" data-screen="ninho" type="button">Ninho</button>
+        <button class="tab" data-screen="minhoca" type="button">Minhocas</button>
+        <button class="tab" data-screen="brilho" type="button">Brilho</button>
+        <button class="tab" data-screen="loja" type="button">Loja</button>
       </nav>
 
-      <section class="actions dead-panel" id="actionsDead" hidden>
-        <p id="deadText" class="dead-text"></p>
-        <button id="btnSummon" class="btn btn-violet" type="button">Invocar o próximo</button>
-        <p class="soon">Pedra da Ressurreição: em breve</p>
-      </section>
-
-      <details class="graves" id="gravesBox" hidden>
-        <summary>Cemitério da linhagem</summary>
-        <ul id="graves"></ul>
-      </details>
-
+      <!-- despensa -->
       <div id="sheet" class="sheet" hidden>
         <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
           <div class="sheet-head">
-            <h2 id="sheetTitle">Comidas</h2>
+            <h2 id="sheetTitle">Despensa</h2>
             <button id="sheetClose" class="btn btn-ghost" type="button" aria-label="Fechar">✕</button>
           </div>
-          <p id="mealsInfo" class="sheet-sub"></p>
+          <p id="sheetInfo" class="sheet-sub"></p>
           <ul id="foodList" class="food-list"></ul>
+          <button id="goWorms" class="btn btn-moss wide" type="button">Catar minhocas</button>
         </div>
       </div>
 
       <div id="toasts" class="toasts" aria-live="polite"></div>
-    </main>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

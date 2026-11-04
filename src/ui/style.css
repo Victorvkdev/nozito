@@ -38,10 +38,10 @@ button { font: inherit; }
 
 /* ---------- layout ---------- */
 .game {
-  min-height: 100dvh; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column;
-  padding: max(8px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
-  gap: 12px;
+  min-height: 100dvh; max-width: 520px; margin: 0 auto;
+  padding: max(8px, env(safe-area-inset-top)) 12px calc(76px + env(safe-area-inset-bottom));
 }
+.screen { display: flex; flex-direction: column; gap: 12px; }
 .hud { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 4px 0; }
 .hud-name { display: flex; flex-direction: column; min-width: 0; }
 .crow-name {
@@ -49,11 +49,12 @@ button { font: inherit; }
   text-shadow: 2px 2px 0 var(--violet-dk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .crow-age { color: var(--muted); font-size: 20px; }
-.seeds {
+.pill {
   display: flex; align-items: center; gap: 6px; background: var(--panel2); padding: 6px 10px;
-  box-shadow: 0 0 0 var(--px) var(--line); font-size: 26px; color: var(--moss2); min-height: 44px;
+  box-shadow: 0 0 0 var(--px) var(--line); font-size: 26px; color: #ff9eb1; min-height: 44px;
 }
-.seeds img { image-rendering: pixelated; }
+.pill img { image-rendering: pixelated; }
+.tag { margin: 0; color: var(--violet2); font-size: 20px; }
 
 .stage {
   position: relative; height: clamp(260px, 50dvh, 460px); overflow: hidden; background: var(--ink2);
@@ -118,9 +119,8 @@ button { font: inherit; }
 .food:disabled { opacity: .55; cursor: not-allowed; }
 .food img { image-rendering: pixelated; width: 48px; height: 48px; }
 .food-name { font-family: var(--head); font-size: 20px; display: block; }
-.food-desc { color: var(--muted); font-size: 18px; }
+.food-desc { color: var(--muted); font-size: 18px; display: block; }
 .food-price { font-size: 22px; white-space: nowrap; }
-.food-price.semente { color: var(--moss2); }
 .food-price.faisca { color: var(--gold); }
 
 /* ---------- toasts ---------- */
@@ -143,3 +143,61 @@ button { font: inherit; }
   animation: float-up 1s steps(6) forwards;
 }
 @keyframes float-up { to { transform: translate(-50%, -48px); opacity: 0; } }
+
+.wide { width: 100%; margin-top: 12px; }
+.food-qty { font-size: 22px; color: var(--white); white-space: nowrap; }
+
+/* ---------- abas ---------- */
+.tabs {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--ink2); box-shadow: 0 calc(-1 * var(--px)) 0 0 var(--line);
+  padding: 6px 8px max(6px, env(safe-area-inset-bottom)); max-width: 520px; margin: 0 auto; gap: 6px;
+}
+.tab {
+  min-height: 52px; border: 0; background: transparent; color: var(--muted); font-family: var(--head);
+  font-weight: 600; font-size: 18px; cursor: pointer;
+}
+.tab[aria-current="page"] { color: var(--gold); background: var(--panel2); box-shadow: inset 0 -4px 0 var(--gold); }
+.tab:focus-visible { outline: 3px solid var(--white); outline-offset: -3px; }
+
+/* ---------- minijogos ---------- */
+.mg-hud { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; padding: 4px; }
+.mg-title { font-family: var(--head); margin: 0; color: var(--gold); font-size: 26px; text-shadow: 2px 2px 0 var(--violet-dk); }
+.mg-score, .mg-time { background: var(--panel2); box-shadow: 0 0 0 var(--px) var(--line); padding: 2px 10px; font-size: 28px; min-width: 56px; text-align: center; }
+.mg-time { color: var(--violet2); }
+.mg-stage { height: clamp(320px, 62dvh, 560px); }
+#screen-brilho .mg-stage { touch-action: none; }
+.mg-overlay {
+  position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; padding: 20px;
+  background: rgba(14, 11, 22, .78); text-align: center; z-index: 2;
+}
+.mg-overlay[hidden] { display: none !important; }
+.mg-text { margin: 0; max-width: 340px; text-shadow: 2px 2px 0 #000; }
+.mg-big { font-family: var(--head); font-size: 64px; color: var(--gold); margin: 0; text-shadow: 3px 3px 0 var(--violet-dk); }
+.mg-keys { margin: 0; color: var(--muted); font-size: 18px; }
+.mg-stock { margin: 0; color: var(--muted); text-align: center; }
+
+/* ---------- loja ---------- */
+.shop-head h2 { font-family: var(--head); margin: 0; color: var(--gold); font-size: 28px; text-shadow: 2px 2px 0 var(--violet-dk); }
+.shop-sec h3 { font-family: var(--head); font-size: 20px; color: var(--violet2); margin: 8px 0; }
+.shop-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.card { background: var(--panel); box-shadow: 0 0 0 var(--px) var(--line); padding: 10px; display: grid; gap: 6px; align-content: start; }
+.card.on { box-shadow: 0 0 0 var(--px) var(--gold); }
+.card-art { height: 56px; display: grid; place-items: center; }
+.card-art img { image-rendering: pixelated; max-width: 100%; }
+.card-name { font-family: var(--head); font-size: 18px; }
+.card-desc { color: var(--muted); font-size: 17px; }
+.card-price { color: var(--gold); }
+.card .btn { min-height: 44px; font-size: 18px; }
+
+/* ---------- coleção ---------- */
+.collection { background: var(--panel); box-shadow: 0 0 0 var(--px) var(--line); padding: 10px 12px; }
+.collection h3 { font-family: var(--head); font-size: 20px; color: var(--gold); margin: 0 0 8px; }
+.col-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.col-item { display: grid; justify-items: center; gap: 4px; text-align: center; font-size: 17px; color: var(--muted); }
+.col-item img { image-rendering: pixelated; width: 32px; height: 32px; }
+.col-item.has { color: var(--white); }
+.col-item .rar { font-size: 15px; }
+.rar.raro { color: var(--violet2); }
+.rar.lendario { color: var(--gold); }
+.food-desc.warn { color: #ff9eb1; }

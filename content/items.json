@@ -1,45 +1,68 @@
 {
-  "version": "1.0.0",
-  "notes": "Fonte única de preços. price.amount em unidades inteiras da moeda (semente ou faisca). O servidor converte Faísca para o amount do protocolo (×1000). Preços iniciais: ajustar após teste. sprite = id do sprite em src/art/sprites.js (pipeline em texto, ver docs/ARTSTYLE.md).",
+  "version": "2.0.0",
+  "notes": "Fonte única de itens. price=null: não se compra (vem de minijogo: ver source). freshHours: estraga depois de X horas. treasure: colecionável da Caça ao Brilho (rarity comum/raro/lendario). price.amount em Faíscas inteiras; o servidor converte para o amount do protocolo (×1000). effects.belly: quanto enche (0–100); mood: humor; slowDigestionHours: barriga esvazia na metade da velocidade. anchor: posição [x,y] do sprite em relação ao corvo 32×32. sky: 4 cores da paleta do céu (de cima para baixo). Preços iniciais: ajustar após teste.",
   "items": [
     {
       "id": "food_minhoca",
       "type": "food",
       "slot": null,
       "name": "Minhoca",
-      "description": "Simples e nutritiva. Garante 3 dias.",
-      "price": {
-        "currency": "semente",
-        "amount": 5
-      },
+      "description": "Catada fresquinha. Estraga em 24h.",
+      "price": null,
+      "source": "cata_minhoca",
       "sprite": "food_minhoca",
       "effects": {
-        "deadlineHours": 72,
+        "belly": 20,
         "mood": 0
       },
       "since": "1.0.0",
       "tags": [
         "basico"
-      ]
+      ],
+      "freshHours": 24
     },
     {
-      "id": "food_petisco_brilhante",
+      "id": "food_frutinhas",
       "type": "food",
       "slot": null,
-      "name": "Petisco brilhante",
-      "description": "Brilha no bico. 3 dias e um pouco de alegria.",
+      "name": "Frutinhas silvestres",
+      "description": "Docinhas. Enchem bem a barriga.",
       "price": {
-        "currency": "semente",
-        "amount": 15
+        "currency": "faisca",
+        "amount": 1
       },
-      "sprite": "food_petisco_brilhante",
+      "source": "loja",
+      "sprite": "food_frutinhas",
       "effects": {
-        "deadlineHours": 72,
-        "mood": 20
+        "belly": 40,
+        "mood": 10
       },
       "since": "1.0.0",
       "tags": [
-        "brilho"
+        "loja"
+      ]
+    },
+    {
+      "id": "food_sopa_quentinha",
+      "type": "food",
+      "slot": null,
+      "name": "Sopa quentinha",
+      "description": "Aquece por dentro: a barriga esvazia na metade da velocidade por 24h.",
+      "price": {
+        "currency": "faisca",
+        "amount": 2
+      },
+      "source": "loja",
+      "sprite": "food_sopa_quentinha",
+      "effects": {
+        "belly": 40,
+        "mood": 10,
+        "slowDigestionHours": 24
+      },
+      "since": "1.0.0",
+      "tags": [
+        "loja",
+        "efeito"
       ]
     },
     {
@@ -47,18 +70,20 @@
       "type": "food",
       "slot": null,
       "name": "Banquete",
-      "description": "Barriga cheia por 5 dias.",
+      "description": "Barriga cheia e corvo muito feliz.",
       "price": {
         "currency": "faisca",
         "amount": 3
       },
+      "source": "loja",
       "sprite": "food_banquete",
       "effects": {
-        "deadlineHours": 120,
-        "mood": 10
+        "belly": 100,
+        "mood": 30
       },
       "since": "1.0.0",
       "tags": [
+        "loja",
         "premium"
       ]
     },
@@ -72,6 +97,7 @@
         "currency": "faisca",
         "amount": 25
       },
+      "source": "loja",
       "sprite": "consumable_pedra_ressurreicao",
       "effects": {
         "revive": true,
@@ -92,15 +118,16 @@
         "currency": "faisca",
         "amount": 10
       },
+      "source": "loja",
       "sprite": "hat_cartola",
-      "anchor": [
-        16,
-        4
-      ],
       "effects": {},
       "since": "1.0.0",
       "tags": [
         "classico"
+      ],
+      "anchor": [
+        9,
+        -6
       ]
     },
     {
@@ -113,15 +140,126 @@
         "currency": "faisca",
         "amount": 15
       },
+      "source": "loja",
       "sprite": "hat_coroa_tampinha",
-      "anchor": [
-        16,
-        4
-      ],
       "effects": {},
       "since": "1.0.0",
       "tags": [
         "brilho"
+      ],
+      "anchor": [
+        9,
+        -5
+      ]
+    },
+    {
+      "id": "hat_gorro_la",
+      "type": "hat",
+      "slot": "hat",
+      "name": "Gorro de lã",
+      "description": "Quentinho para as noites frias.",
+      "price": {
+        "currency": "faisca",
+        "amount": 8
+      },
+      "source": "loja",
+      "sprite": "hat_gorro_la",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "aconchego"
+      ],
+      "anchor": [
+        9,
+        -5
+      ]
+    },
+    {
+      "id": "glasses_oculos_redondos",
+      "type": "glasses",
+      "slot": "glasses",
+      "name": "Óculos redondos",
+      "description": "Para ler as estrelas.",
+      "price": {
+        "currency": "faisca",
+        "amount": 6
+      },
+      "source": "loja",
+      "sprite": "glasses_oculos_redondos",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "classico"
+      ],
+      "anchor": [
+        12,
+        7
+      ]
+    },
+    {
+      "id": "glasses_oculos_estrela",
+      "type": "glasses",
+      "slot": "glasses",
+      "name": "Óculos de estrela",
+      "description": "Estilo de quem brilha.",
+      "price": {
+        "currency": "faisca",
+        "amount": 10
+      },
+      "source": "loja",
+      "sprite": "glasses_oculos_estrela",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "brilho"
+      ],
+      "anchor": [
+        12,
+        6
+      ]
+    },
+    {
+      "id": "cape_capa_violeta",
+      "type": "cape",
+      "slot": "cape",
+      "name": "Capa violeta",
+      "description": "Uma capa de herói, tamanho filhote.",
+      "price": {
+        "currency": "faisca",
+        "amount": 12
+      },
+      "source": "loja",
+      "sprite": "cape_capa_violeta",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "heroi"
+      ],
+      "anchor": [
+        -5,
+        10
+      ]
+    },
+    {
+      "id": "cape_capa_noite",
+      "type": "cape",
+      "slot": "cape",
+      "name": "Capa da noite",
+      "description": "Bordada com estrelinhas.",
+      "price": {
+        "currency": "faisca",
+        "amount": 18
+      },
+      "source": "loja",
+      "sprite": "cape_capa_noite",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "brilho"
+      ],
+      "anchor": [
+        -5,
+        10
       ]
     },
     {
@@ -129,16 +267,13 @@
       "type": "nest",
       "slot": "nest",
       "name": "Ninho de galhos",
-      "description": "Aconchegante e com cheiro de mato.",
+      "description": "Firme e com cheiro de mato.",
       "price": {
         "currency": "faisca",
-        "amount": 5
+        "amount": 6
       },
+      "source": "loja",
       "sprite": "nest_galhos",
-      "anchor": [
-        16,
-        28
-      ],
       "effects": {},
       "since": "1.0.0",
       "tags": [
@@ -146,20 +281,213 @@
       ]
     },
     {
-      "id": "wallpaper_ceu_estrelado",
+      "id": "nest_almofada",
+      "type": "nest",
+      "slot": "nest",
+      "name": "Ninho de almofada",
+      "description": "Fofo como nuvem.",
+      "price": {
+        "currency": "faisca",
+        "amount": 12
+      },
+      "source": "loja",
+      "sprite": "nest_almofada",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "aconchego"
+      ]
+    },
+    {
+      "id": "wallpaper_aurora",
       "type": "wallpaper",
       "slot": "wallpaper",
-      "name": "Céu estrelado",
-      "description": "Um céu cheio de coisas brilhantes.",
+      "name": "Céu de aurora",
+      "description": "Faixas verdes e azuis dançando no céu.",
+      "price": {
+        "currency": "faisca",
+        "amount": 10
+      },
+      "source": "loja",
+      "sprite": "wallpaper_aurora",
+      "effects": {},
+      "since": "1.0.0",
+      "tags": [
+        "ceu"
+      ],
+      "sky": [
+        "k",
+        "M",
+        "C",
+        "ã"
+      ]
+    },
+    {
+      "id": "wallpaper_por_do_sol",
+      "type": "wallpaper",
+      "slot": "wallpaper",
+      "name": "Pôr do sol",
+      "description": "O céu laranja de fim de tarde.",
       "price": {
         "currency": "faisca",
         "amount": 8
       },
-      "sprite": "wallpaper_ceu_estrelado",
+      "source": "loja",
+      "sprite": "wallpaper_por_do_sol",
       "effects": {},
       "since": "1.0.0",
       "tags": [
-        "brilho"
+        "ceu"
+      ],
+      "sky": [
+        "u",
+        "ã",
+        "r",
+        "f"
+      ]
+    },
+    {
+      "id": "treasure_tampinha",
+      "type": "treasure",
+      "slot": null,
+      "name": "Tampinha",
+      "description": "Uma tampinha amassada, mas brilha.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_tampinha",
+      "effects": {},
+      "rarity": "comum",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_botao",
+      "type": "treasure",
+      "slot": null,
+      "name": "Botão dourado",
+      "description": "Caiu de um casaco chique.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_botao",
+      "effects": {},
+      "rarity": "comum",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_bolinha",
+      "type": "treasure",
+      "slot": null,
+      "name": "Bolinha de gude",
+      "description": "Tem um redemoinho azul dentro.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_bolinha",
+      "effects": {},
+      "rarity": "comum",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_colher",
+      "type": "treasure",
+      "slot": null,
+      "name": "Colher torta",
+      "description": "Reflete a lua.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_colher",
+      "effects": {},
+      "rarity": "comum",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_anel",
+      "type": "treasure",
+      "slot": null,
+      "name": "Anel de lata",
+      "description": "Quase cabe no dedo de um corvo.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_anel",
+      "effects": {},
+      "rarity": "raro",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_chave",
+      "type": "treasure",
+      "slot": null,
+      "name": "Chave antiga",
+      "description": "Abre alguma porta esquecida.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_chave",
+      "effects": {},
+      "rarity": "raro",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_vidro",
+      "type": "treasure",
+      "slot": null,
+      "name": "Caco de vidro azul",
+      "description": "Polido pela chuva.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_vidro",
+      "effects": {},
+      "rarity": "raro",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_moeda",
+      "type": "treasure",
+      "slot": null,
+      "name": "Moeda antiga",
+      "description": "De um tempo que ninguém lembra.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_moeda",
+      "effects": {},
+      "rarity": "lendario",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
+      ]
+    },
+    {
+      "id": "treasure_estrela",
+      "type": "treasure",
+      "slot": null,
+      "name": "Estrela de papel-alumínio",
+      "description": "Alguém fez com carinho.",
+      "price": null,
+      "source": "caca_brilho",
+      "sprite": "treasure_estrela",
+      "effects": {},
+      "rarity": "lendario",
+      "since": "1.0.0",
+      "tags": [
+        "tesouro"
       ]
     }
   ]

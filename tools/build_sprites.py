@@ -385,6 +385,313 @@ HAND = {
     ]],
 }
 
+HAND.update({
+    "food_frutinhas": [[
+        "............",
+        "......mm....",
+        ".....mnm....",
+        "...kkkmkk...",
+        "..ktrkkrtk..",
+        "..krrkkrrk..",
+        "..kkkrtkkk..",
+        "...ktrrrk...",
+        "...kRrrRk...",
+        "....kkkk....",
+        "............",
+        "............",
+    ]],
+    "food_sopa_quentinha": [[
+        "...l...l....",
+        "....l...l...",
+        "...l...l....",
+        "............",
+        ".kkkkkkkkkk.",
+        "kFfFfFFfFffk",
+        "kOOOOOOOOOOk",
+        ".kOoooooooOk",
+        "..kOooooOkk.",
+        "...kkkkkk...",
+        "............",
+        "............",
+    ]],
+    "hat_gorro_la": [[
+        ".......ww.......",
+        "......wwWw......",
+        "......kWWk......",
+        ".....krrrrk.....",
+        "....krtrrrrk....",
+        "...krtrrrrrRk...",
+        "...kwwwwwwwwk...",
+        "..krrrrrrrrRRk..",
+        "..kwwwwwwwwwWk..",
+        "..kkkkkkkkkkkk..",
+        "................",
+        "................",
+    ]],
+    "glasses_oculos_redondos": [[
+        "......GGGGGGG.",
+        "......G.....GG",
+        "GGGGGGy.....G.",
+        "......G.....G.",
+        "......G.....G.",
+        "......G.....G.",
+        "......GGGGGGG.",
+    ]],
+    "glasses_oculos_estrela": [[
+        ".........t....",
+        "......tttyttt.",
+        "......t.....tt",
+        "ttttttt.....t.",
+        "......y.....y.",
+        "......t.....t.",
+        "......ttttttt.",
+    ]],
+    "wallpaper_aurora": [[
+        "kkkkkkkkkkkk",
+        "kKKnKKKKcKKk",
+        "kKnnnKKccKKk",
+        "kbnnmbccCbbk",
+        "kbbmmbCCbbbk",
+        "kbbbbbbbbbbk",
+        "kããlãããããVãk",
+        "kããããããããããk",
+        "kããããããããããk",
+        "kuuuuuuuuuuk",
+        "kuuuuuuuuuuk",
+        "kkkkkkkkkkkk",
+    ]],
+    "wallpaper_por_do_sol": [[
+        "kkkkkkkkkkkk",
+        "kuuuuuuuuuuk",
+        "kããããããããããk",
+        "kttttttttttk",
+        "kttttFFttttk",
+        "kffffFFFfffk",
+        "kfffFFFFFffk",
+        "kFFFFFFFFFFk",
+        "kooooooooook",
+        "keeeeeeeeeek",
+        "keeeeeeeeeek",
+        "kkkkkkkkkkkk",
+    ]],
+    # ---------- minijogos
+    "mg_hole": [[
+        "...kkkkkkkk...",
+        ".kkeeeeeeeekk.",
+        "keeeeKKKKeeeek",
+        ".kkeeeeeeeekk.",
+        "...kkkkkkkk...",
+    ]],
+    "mg_worm": [
+        [
+            "..kkkk..",
+            ".kçççtk.",
+            "kçkççkçk",
+            "kçççççtk",
+            "kçtttttk",
+            ".kçççtk.",
+            ".kçttçk.",
+            ".kçççtk.",
+            ".kçttçk.",
+            ".kçççtk.",
+            ".kçttçk.",
+            ".kçççtk.",
+        ],
+        [
+            "........",
+            "..kkkk..",
+            ".kçççtk.",
+            "kçkççkçk",
+            "kçççççtk",
+            "kçtttttk",
+            ".kçççtk.",
+            ".kçttçk.",
+            ".kçççtk.",
+            ".kçttçk.",
+            ".kçççtk.",
+            ".kçttçk.",
+        ],
+    ],
+    "mg_coin": [[
+        "..kkkk..",
+        ".kgyygk.",
+        "kgyGGygk",
+        "kgyGyygk",
+        "kgyGyygk",
+        "kgyyyGgk",
+        ".kGggGk.",
+        "..kkkk..",
+    ]],
+    "mg_ring": [[
+        "...cc...",
+        "..kclk..",
+        "..kkkk..",
+        ".kg..gk.",
+        "kg....gk",
+        "kg....Gk",
+        ".kGggGk.",
+        "..kkkk..",
+    ]],
+    "mg_gem": [[
+        "..kkkk..",
+        ".klccck.",
+        "kllcccCk",
+        "kccccCCk",
+        ".kcccCk.",
+        "..kcCk..",
+        "...kk...",
+        "........",
+    ]],
+    "mg_rock": [[
+        "..kkkk..",
+        ".kXjjNk.",
+        "kXjjjjNk",
+        "kjjjjNNk",
+        "kjjjNNNk",
+        ".kNNNNk.",
+        "..kkkk..",
+        "........",
+    ]],
+})
+
+HAND.update({
+    "treasure_tampinha": [[
+        "........",
+        "..kkkk..",
+        ".krrrrk.",
+        "krtrrrRk",
+        "krrrrrRk",
+        ".kRRRRk.",
+        "..kkkk..",
+        "........",
+    ]],
+    "treasure_botao": [[
+        "..kkkk..",
+        ".kgyygk.",
+        "kgyGGygk",
+        "kgGkkGgk",
+        "kgGkkGgk",
+        "kggGGgGk",
+        ".kGggGk.",
+        "..kkkk..",
+    ]],
+    "treasure_bolinha": [[
+        "..kkkk..",
+        ".klcCck.",
+        "kllcCcCk",
+        "kcCcccCk",
+        "kccCcCCk",
+        "kcCCCCCk",
+        ".kCCCCk.",
+        "..kkkk..",
+    ]],
+    "treasure_colher": [[
+        "......kk",
+        ".....kWk",
+        "....kWk.",
+        "...kWk..",
+        ".kkWk...",
+        "kwWWk...",
+        "kWWjk...",
+        ".kkk....",
+    ]],
+    "treasure_anel": [[
+        "...kk...",
+        "..kVlk..",
+        "..kkkk..",
+        ".kj..jk.",
+        "kj....Xk",
+        "kj....Nk",
+        ".kNjjNk.",
+        "..kkkk..",
+    ]],
+    "treasure_chave": [[
+        ".kkk....",
+        "kgyGk...",
+        "kG.Gk...",
+        "kgGGkkkk",
+        ".kkkgggk",
+        "....kGkk",
+        "....kGk.",
+        ".....k..",
+    ]],
+    "treasure_vidro": [[
+        "....kk..",
+        "...klck.",
+        "..klccCk",
+        ".klcccCk",
+        "kccccCk.",
+        "kcccCk..",
+        ".kCCk...",
+        "..kk....",
+    ]],
+    "treasure_moeda": [[
+        "..kkkk..",
+        ".kgGGgk.",
+        "kgyggGGk",
+        "kgGyGgGk",
+        "kgGGyGGk",
+        "kggGGgGk",
+        ".kGGGGk.",
+        "..kkkk..",
+    ]],
+    "treasure_estrela": [[
+        "...kk...",
+        "...kWk..",
+        "kkkkwWkk",
+        "kwwwwWWk",
+        ".kwwWWk.",
+        ".kwWkWk.",
+        "kwWk.kWk",
+        "kkk...kk",
+    ]],
+    "treasure_unknown": [[
+        "..kkkk..",
+        ".kbbbbk.",
+        "kbbhhbbk",
+        "kbbbhbbk",
+        "kbbhbbbk",
+        "kbbbbbbk",
+        ".kbhbbk.",
+        "..kkkk..",
+    ]],
+})
+
+
+def cape(main, light, trim, dots=None):
+    """Capa vista de lado: sai das costas e abre para a esquerda (o corvo olha para a direita)."""
+    w, h = 14, 14
+    g = blank(w, h)
+    for r in range(h):
+        left = max(0, round(7 - r * 1.3))
+        right = min(w - 1, 10 + r // 4)
+        for x in range(left, right + 1):
+            g[r][x] = main
+        g[r][left] = light
+        if r >= h - 2:
+            for x in range(left, right + 1):
+                g[r][x] = trim
+    for x, y in ((5, 4), (3, 7), (2, 10)):
+        g[y][x] = light
+    if dots:
+        for x, y in ((4, 6), (1, 9), (6, 9), (3, 11)):
+            g[y][x] = dots
+    return outline(g)
+
+
+def nest_cushion(w=48, h=16):
+    g = blank(w, h)
+    cx, rx = w / 2, w / 2 - 1
+    for y in range(3, h - 1):
+        for x in range(w):
+            px, py = x + 0.5, y + 0.5
+            if ((px - cx) / rx) ** 2 + ((py - 8.5) / 6.2) ** 2 <= 1:
+                g[y][x] = "V" if py < 6 else ("v" if py < 11 else "u")
+    for x in range(6, w - 6, 9):
+        put(g, [(x, 4), (x + 1, 4)], "l")
+    put(g, [(3, 12), (3, 13), (w - 4, 12), (w - 4, 13)], "g")
+    return outline(g)
+
 
 def nest(w=48, h=16, kind="default"):
     g = blank(w, h)
@@ -407,7 +714,7 @@ def nest(w=48, h=16, kind="default"):
     return outline(g)
 
 
-def wallpaper_icon():
+def _unused_wallpaper_icon():
     return [
         "kkkkkkkkkkkk",
         "kKKKKKKKlKKk",
@@ -430,7 +737,9 @@ def main():
         SPRITES[name] = check(name, frames)
     SPRITES["scene_nest"] = check("scene_nest", [to_rows(nest())])
     SPRITES["nest_galhos"] = check("nest_galhos", [to_rows(nest(kind="galhos"))])
-    SPRITES["wallpaper_ceu_estrelado"] = check("wallpaper_ceu_estrelado", [wallpaper_icon()])
+    SPRITES["nest_almofada"] = check("nest_almofada", [to_rows(nest_cushion())])
+    SPRITES["cape_capa_violeta"] = check("cape_capa_violeta", [to_rows(cape("u", "v", "g"))])
+    SPRITES["cape_capa_noite"] = check("cape_capa_noite", [to_rows(cape("K", "h", "g", dots="l"))])
     OUT.parent.mkdir(parents=True, exist_ok=True)
     body = (
         "// GERADO por tools/build_sprites.py — não editar à mão.\n"

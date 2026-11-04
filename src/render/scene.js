@@ -28,15 +28,15 @@ function stars(w, h) {
  * Desenha o cenário em pixels lógicos. Devolve o ponto onde o ninho fica.
  * @param {CanvasRenderingContext2D} ctx
  */
-export function drawScene(ctx, w, h, t, { reducedMotion = false } = {}) {
-  // céu em faixas (sem gradiente suave)
-  const bands = [P.k, P.K, P.b, P['ã']];
+export function drawScene(ctx, w, h, t, { reducedMotion = false, sky = null, branch = true } = {}) {
+  // céu em faixas (sem gradiente suave); `sky` = 4 chars da paleta (papel de parede)
+  const bands = (sky ?? ['k', 'K', 'b', 'ã']).map((c) => P[c]);
   const bandH = Math.ceil((h * 0.8) / bands.length);
   bands.forEach((c, i) => {
     ctx.fillStyle = c;
     ctx.fillRect(0, i * bandH, w, bandH + 1);
   });
-  ctx.fillStyle = P['ã'];
+  ctx.fillStyle = bands[bands.length - 1];
   ctx.fillRect(0, bandH * bands.length, w, h);
   // dither entre faixas
   for (let i = 1; i < bands.length; i++) {
@@ -81,6 +81,7 @@ export function drawScene(ctx, w, h, t, { reducedMotion = false } = {}) {
   // galho atravessando
   const groundY = h - 18;
   const nestX = Math.round(w / 2);
+  if (!branch) return { nestX, groundY };
   for (let x = 0; x < w; x++) {
     const sag = Math.round(Math.sin((x / w) * Math.PI) * 2);
     const y = groundY + 4 - sag;
