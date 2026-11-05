@@ -11,3 +11,4 @@ Como estudar cada capítulo (≈30 min):
 
 - [Sprint 0 + 1 — Fundação e o Nózito na tela](sprint-0-1.md)
 - [Sprint 2 — Barriga, minijogos e loja](sprint-2.md)
+- [Sprint 3 — Pedra da Ressurreição e compartilhar](sprint-3.md)

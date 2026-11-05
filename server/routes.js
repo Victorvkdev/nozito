@@ -1,7 +1,7 @@
 // Handlers das rotas /api/*. Cada um recebe o contexto das Pages Functions.
 import { HttpError, json, readJson, handle } from './http.js';
 import { createSession, ensurePlayer, isLocalDev, playerRefFromEnois, randomHex, requireSession } from './auth.js';
-import { currentCrow, equip as equipItem, feedCrow, finishRound, getState, grantDev, petCrow, startRound, summonNext } from './game.js';
+import { currentCrow, equip as equipItem, feedCrow, finishRound, getState, grantDev, petCrow, reviveCrow, startRound, summonNext } from './game.js';
 
 const nowOf = (env) => (typeof env.NOW === 'function' ? env.NOW() : Date.now());
 
@@ -49,6 +49,11 @@ export const pet = authed(async ({ env, now, ref }) => {
 
 export const summon = authed(async ({ env, now, ref }) => {
   await summonNext(env.DB, ref, now);
+  return json(await getState(env.DB, ref, now));
+});
+
+export const revive = authed(async ({ env, now, ref }) => {
+  await reviveCrow(env.DB, ref, now);
   return json(await getState(env.DB, ref, now));
 });
 

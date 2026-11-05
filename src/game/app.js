@@ -22,6 +22,8 @@ const ERRORS = {
   CROW_ALIVE: 'Seu Nózito ainda está vivo!',
   PAYMENT_UNAVAILABLE: 'Compras com Faísca chegam em breve.',
   ALREADY_SUMMONED: 'O próximo Nózito já nasceu.',
+  NO_STONE: 'Você não tem a Pedra da Ressurreição.',
+  REVIVE_EXPIRED: 'A Pedra só funciona até 7 dias depois da morte.',
   ROUND_EXPIRED: 'A rodada expirou. Jogue de novo!',
   OFFLINE: 'Sem conexão. Tente de novo.',
 };
@@ -211,9 +213,18 @@ export function startApp({ bridge }) {
     if (!living) {
       $('deadText').textContent = `${crow.name} viveu ${plural(R.ageDays(crow, t), 'dia', 'dias')}. A linhagem continua.`;
       $('btnSummon').textContent = `Invocar ${R.crowName(crow.generation + 1)}`;
+      $('btnShare').hidden = false;
+      const hasStone = qty('consumable_pedra_ressurreicao') > 0;
+      const canStone = R.canRevive(crow, t);
+      $('btnRevive').hidden = !(hasStone && canStone);
+      $('reviveHint').hidden = hasStone && canStone;
+      $('reviveHint').textContent = canStone
+        ? 'Pedra da Ressurreição: em breve na loja'
+        : 'A Pedra só funciona até 7 dias depois da morte.';
     }
     $('btnFeed').disabled = busy;
     $('btnSummon').disabled = busy;
+    $('btnRevive').disabled = busy;
 
     const graves = state.graves ?? [];
     $('gravesBox').hidden = graves.length === 0;
@@ -341,6 +352,28 @@ export function startApp({ bridge }) {
     }
   }
 
+  async function doRevive() {
+    if (busy) return;
+    busy = true;
+    render();
+    try {
+      apply(await api.revive());
+      stage.play('happy');
+      toast(`${state.crow.name} voltou!`, 'ok');
+    } catch (e) {
+      fail(e);
+    } finally {
+      busy = false;
+      render();
+    }
+  }
+
+  function doShare() {
+    const c = state.crow;
+    const texto = `${c.name} viveu ${plural(R.ageDays(c, now()), 'dia', 'dias')} no Nózito. Venha cuidar do seu corvinho!`;
+    if (!bridge.share({ texto })) toast('Abra o Nózito dentro do Énóis para compartilhar.', 'err');
+  }
+
   // ---------- loja
   function renderShop() {
     if (!state) return;
@@ -412,6 +445,8 @@ export function startApp({ bridge }) {
     doPet();
   });
   $('btnSummon').addEventListener('click', doSummon);
+  $('btnRevive').addEventListener('click', doRevive);
+  $('btnShare').addEventListener('click', doShare);
   $('sheetClose').addEventListener('click', () => closeSheet());
   $('goWorms').addEventListener('click', () => {
     closeSheet(false);

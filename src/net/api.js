@@ -64,6 +64,7 @@ export const getState = () => call('state');
 export const feed = (itemId) => call('feed', { method: 'POST', body: { itemId } });
 export const pet = () => call('pet', { method: 'POST' });
 export const summon = () => call('summon', { method: 'POST' });
+export const revive = () => call('revive', { method: 'POST' });
 export const roundStart = (game) => call('round/start', { method: 'POST', body: { game } });
 export const roundFinish = (roundId, score) => call('round/finish', { method: 'POST', body: { roundId, score } });
 export const equip = (slot, itemId) => call('equip', { method: 'POST', body: { slot, itemId } });

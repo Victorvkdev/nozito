@@ -230,6 +230,41 @@ describe('morte e linhagem', () => {
   });
 });
 
+describe('Pedra da Ressurreição', () => {
+  const STONE = 'consumable_pedra_ressurreicao';
+
+  it('revive o mesmo corvo, gasta a Pedra e mantém a geração', async () => {
+    const token = await guest();
+    await give(token, STONE, 1);
+    clock += 40 * HOUR;
+    const dead = (await call('state', { token })).data.crow;
+    expect(dead.status).toBe('DEAD');
+    clock += 2 * DAY;
+    const r = await post('revive', token);
+    expect(r.status).toBe(200);
+    expect(r.data.crow.id).toBe(dead.id);
+    expect(r.data.crow.status).toBe('REVIVED');
+    expect(r.data.crow.generation).toBe(1);
+    expect(r.data.inventory[STONE] ?? 0).toBe(0);
+    expect((await post('revive', token)).data.error).toBe('CROW_ALIVE');
+  });
+
+  it('recusa sem Pedra, vivo, depois de 7 dias e depois de invocar o próximo', async () => {
+    const token = await guest();
+    expect((await post('revive', token)).data.error).toBe('CROW_ALIVE');
+    clock += 40 * HOUR;
+    expect((await post('revive', token)).data.error).toBe('NO_STONE');
+    await give(token, STONE, 2);
+    clock += 8 * DAY;
+    expect((await post('revive', token)).data.error).toBe('REVIVE_EXPIRED');
+    expect((await post('summon', token)).data.crow.name).toBe('Nózito II');
+    clock += 40 * HOUR;
+    // Nózito II morreu agora: dentro da janela, revive o II (não o I)
+    const r = await post('revive', token);
+    expect(r.data.crow.generation).toBe(2);
+  });
+});
+
 describe('cosméticos', () => {
   it('só equipa o que tem, no lugar certo; o próximo da linhagem herda', async () => {
     const token = await guest();

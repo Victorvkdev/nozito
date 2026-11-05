@@ -1,5 +1,19 @@
 # Changelog
 
+## [Sprint 3] — 2026-11-04 · Pedra da Ressurreição e compartilhar
+
+### Adicionado
+- `POST /api/revive`: gasta 1 Pedra da Ressurreição da conta e revive o **mesmo** corvo (até 7 dias da morte,
+  só se não houver geração mais nova). Volta com barriga 60 e humor 50. Erros: `CROW_ALIVE`, `NO_STONE`, `REVIVE_EXPIRED`.
+- Tela de morte: botão "Usar Pedra da Ressurreição" (aparece só com Pedra no inventário e dentro da janela)
+  e aviso quando a janela de 7 dias passou.
+- Botão "Compartilhar no Énóis" na tela de morte (`enois:share`; o clique de publicar é sempre do jogador).
+- Testes: ressurreição (mesmo corvo, Pedra gasta, sem Pedra, janela expirada, próximo da linhagem).
+
+### Pendente
+- A Pedra só chega ao inventário por compra com Faísca, que depende do Énóis confirmar o pagamento
+  (`docs/issues/enois-spend-result.md`). Até lá, só no laboratório local (botão "ganhar itens").
+
 ## [Sprint 2] — 2026-11-04 · Barriga, minijogos e loja
 
 ### Mudou (decisões do Vk)

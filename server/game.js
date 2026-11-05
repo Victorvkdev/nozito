@@ -210,6 +210,30 @@ export async function summonNext(db, playerRef, now) {
   return crow;
 }
 
+/** Pedra da Ressurreição: gasta 1 da conta e revive o mesmo corvo (até 7 dias, sem geração nova). */
+export async function reviveCrow(db, playerRef, now) {
+  const stone = 'consumable_pedra_ressurreicao';
+  const crow = await currentCrow(db, playerRef, now);
+  if (crow.status !== R.STATUS.DEAD) throw new HttpError(409, 'CROW_ALIVE', 'O Nózito está vivo.');
+  if (!R.canRevive(crow, now)) throw new HttpError(409, 'REVIVE_EXPIRED', 'A Pedra só funciona até 7 dias depois da morte.');
+  if ((await qtyOf(db, playerRef, stone)) < 1) throw new HttpError(409, 'NO_STONE', 'Você não tem a Pedra da Ressurreição.');
+  const next = R.revive(crow, now);
+  try {
+    await db.batch([
+      // CHECK (qty >= 0) desfaz tudo se outro pedido gastou a última Pedra.
+      db.prepare('UPDATE inventory SET qty = qty - 1 WHERE player_ref = ? AND item_id = ?').bind(playerRef, stone),
+      db.prepare(
+        "UPDATE crows SET status = 'REVIVED', died_at = NULL, belly = ?, belly_at = ?, last_fed_at = ?, slow_until = NULL, deadline_at = ?, mood = ?, mood_at = ? WHERE id = ? AND status = 'DEAD'",
+      ).bind(next.belly, next.bellyAt, next.lastFedAt, next.deadlineAt, next.mood, next.moodAt, crow.id),
+      event(db, playerRef, crow.id, 'REVIVE', null, now),
+    ]);
+  } catch (err) {
+    if (String(err?.message ?? err).includes('qty')) throw new HttpError(409, 'NO_STONE', 'Você não tem a Pedra da Ressurreição.');
+    throw err;
+  }
+  return next;
+}
+
 // ---------- Minijogos
 
 const secureRandom = () => crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
