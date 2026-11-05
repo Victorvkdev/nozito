@@ -111,7 +111,7 @@
 ## [Sprint 0] — 2026-10-31 · Fundação
 
 ### Adicionado
-- `CLAUDE.md` com as regras do repo.
+- `CONTRIBUTING.md` com as regras do repo.
 - `shared/rules.js`: fome por fração do prazo, morte preguiçosa (`died_at = deadline_at`), limite de
   3 refeições/dia, humor com queda por hora, carinho 1x/hora, recompensa da Caça ao Brilho com teto
   diário, linhagem (Nózito, II, III…), Pedra da Ressurreição (7 dias), conversão Faísca → milésimos.
