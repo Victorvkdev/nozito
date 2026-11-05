@@ -1,5 +1,18 @@
 # Changelog
 
+## [Sprint 4] — 2026-11-05 · No ar
+
+### Publicado
+- https://nozito.victorvk.com no Cloudflare Pages (repo `Victorvkdev/nozito`, branch `main`, build `npm run build`, saída `dist`).
+- D1 `nozito-db` criado e `migrations/0001_init.sql` aplicada pelo Console do painel.
+- Testado em produção: convidado, alimentar e minijogo funcionando.
+- A partir daqui: só migrations novas (`0002_*.sql`), nunca editar a `0001`.
+
+### Pendente
+- Rate limit em `/api/session` (regra na Cloudflare) para limitar contas convidadas.
+- `ENOIS_GAME_ID` em `wrangler.toml` quando o jogo for cadastrado no Énóis (liga o login pelo Énóis).
+- Compra com Faísca (depende da issue `enois-spend-result`).
+
 ## [Sprint 3] — 2026-11-04 · Pedra da Ressurreição e compartilhar
 
 ### Adicionado

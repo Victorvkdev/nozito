@@ -11,5 +11,5 @@ ALLOW_GUEST = "true"
 [[d1_databases]]
 binding = "DB"
 database_name = "nozito-db"
-database_id = "36d08d1d-6559-46bd-b8f4-3afba2212270" # trocar pelo id real do D1
+database_id = "36d08d1d-6559-46bd-b8f4-3afba2212270"
 migrations_dir = "migrations"
