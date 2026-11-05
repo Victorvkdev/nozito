@@ -6,10 +6,10 @@
 - https://nozito.victorvk.com no Cloudflare Pages (repo `Victorvkdev/nozito`, branch `main`, build `npm run build`, saída `dist`).
 - D1 `nozito-db` criado e `migrations/0001_init.sql` aplicada pelo Console do painel.
 - Testado em produção: convidado, alimentar e minijogo funcionando.
+- Rate limit no WAF da Cloudflare: `/api/session` em `nozito.victorvk.com`, 10 requisições por IP a cada 10 segundos, bloqueio de 10 segundos.
 - A partir daqui: só migrations novas (`0002_*.sql`), nunca editar a `0001`.
 
 ### Pendente
-- Rate limit em `/api/session` (regra na Cloudflare) para limitar contas convidadas.
 - `ENOIS_GAME_ID` em `wrangler.toml` quando o jogo for cadastrado no Énóis (liga o login pelo Énóis).
 - Compra com Faísca (depende da issue `enois-spend-result`).
 
